@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'widgets.dart';
 
 void main() {
   runApp(const GroceryApp());
@@ -179,11 +180,11 @@ class HomePage extends StatelessWidget {
                 itemBuilder: (context, index) {
                   final product = products[index];
 
-                  return productCard(
-                    product['name']!,
-                    product['price']!,
-                    product['image']!,
-                  );
+                  return GroceryProductCard(
+                  name: product['name']!,
+                  price: product['price']!,
+                  image: product['image']!,
+                 );
                 },
               ),
             ],
