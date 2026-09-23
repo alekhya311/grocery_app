@@ -1,17 +1,48 @@
-# grocery_app
+# Fresh Basket 🛒
 
-A new Flutter project.
+Fresh Basket is a Flutter-based grocery shopping application developed as a college project.
 
-## Getting Started
+## Features
 
-This project is a starting point for a Flutter application.
+- 🥬 Grocery categories
+- 🍎 Fresh fruits and vegetables
+- 🛍️ Product cards with images and prices
+- 🛒 Shopping cart
+- 📱 Responsive user interface
+- 🎨 Custom widgets and themes
+- 🧭 Navigation between screens
+- 📝 Forms and validation
+- ✨ UI animations
+- 🌐 REST API integration
+- 🧪 Flutter testing
 
-A few resources to get you started if this is your first Flutter project:
+## Technologies Used
 
-- [Learn Flutter](https://docs.flutter.dev/get-started/learn-flutter)
-- [Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Flutter learning resources](https://docs.flutter.dev/reference/learning-resources)
+- Flutter
+- Dart
+- Android Studio
+- Visual Studio Code
+- Git & GitHub
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+## Lab Experiments
+
+This project is developed according to the Flutter Lab Manual and includes:
+
+1. Dart Basics
+2. Flutter Widgets and Layouts
+3. Responsive UI
+4. Navigation and Named Routes
+5. State Management
+6. Custom Widgets and Themes
+7. Forms and Validation
+8. UI Animations
+9. REST API
+10. Testing and Debugging
+
+## Project Structure
+
+```text
+lib/
+├── main.dart
+├── dart_basics.dart
+├──
