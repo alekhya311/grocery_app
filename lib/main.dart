@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'cart_provider.dart';
+import 'responsive_ui.dart';
 
 void main() {
   // Experiment 5: Global state management using Provider
@@ -61,11 +62,8 @@ class HomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // Experiment 3: Responsive UI using MediaQuery
-    final screenWidth = MediaQuery.of(context).size.width;
-
-    final crossAxisCount = screenWidth < 600 ? 2 : 4;
-
+    // Experiment 3: MediaQuery gets the current screen width
+final screenWidth = MediaQuery.of(context).size.width;
     return Scaffold(
       appBar: AppBar(
         title: const Text(
@@ -102,7 +100,10 @@ class HomePage extends StatelessWidget {
       ),
       body: SingleChildScrollView(
         child: Padding(
-          padding: const EdgeInsets.all(16),
+padding: EdgeInsets.symmetric(
+  horizontal: screenWidth < 600 ? 16 : 32,
+  vertical: 16,
+),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -196,25 +197,15 @@ class HomePage extends StatelessWidget {
 
               const SizedBox(height: 15),
 
-              GridView.builder(
-                shrinkWrap: true,
-                physics: const NeverScrollableScrollPhysics(),
-                itemCount: products.length,
-                gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                  crossAxisCount: crossAxisCount,
-                  crossAxisSpacing: 12,
-                  mainAxisSpacing: 12,
-                  childAspectRatio: 0.68,
-                ),
-                itemBuilder: (context, index) {
-                  final product = products[index];
-
+              // Experiment 3: Responsive UI using LayoutBuilder
+              ResponsiveProductLayout(
+                products: products.map((product) {
                   return ProductCard(
                     name: product['name']!,
                     price: product['price']!,
                     image: product['image']!,
                   );
-                },
+                }).toList(),
               ),
             ],
           ),
@@ -250,7 +241,6 @@ class HomePage extends StatelessWidget {
   }
 }
 
-// Experiment 5: StatefulWidget and setState()
 class ProductCard extends StatefulWidget {
   final String name;
   final String price;
@@ -314,9 +304,9 @@ class _ProductCardState extends State<ProductCard> {
                   ),
                 ),
 
+                // Experiment 5: Local state using setState()
                 IconButton(
                   onPressed: () {
-                    // Experiment 5: Update local state using setState()
                     setState(() {
                       isFavorite = !isFavorite;
                     });
