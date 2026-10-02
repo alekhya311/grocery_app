@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'cart_provider.dart';
 import 'responsive_ui.dart';
+import 'navigation.dart';
 
 void main() {
   // Experiment 5: Global state management using Provider
@@ -21,6 +22,12 @@ class GroceryApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Fresh Basket',
+
+      // Experiment 4: Named route
+      routes: {
+        '/categories': (context) => const NavigationPage(),
+      },
+
       theme: ThemeData(
         primarySwatch: Colors.green,
         scaffoldBackgroundColor: Colors.white,
@@ -62,8 +69,9 @@ class HomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // Experiment 3: MediaQuery gets the current screen width
-final screenWidth = MediaQuery.of(context).size.width;
+    // Experiment 3: MediaQuery gets screen width
+    final screenWidth = MediaQuery.of(context).size.width;
+
     return Scaffold(
       appBar: AppBar(
         title: const Text(
@@ -71,13 +79,15 @@ final screenWidth = MediaQuery.of(context).size.width;
           style: TextStyle(fontWeight: FontWeight.bold),
         ),
         actions: [
-          // Experiment 5: Reading global cart state using Provider
           Consumer<CartProvider>(
             builder: (context, cart, child) {
               return Stack(
                 children: [
                   IconButton(
-                    onPressed: () {},
+                    onPressed: () {
+                      // Experiment 4: Named route navigation
+                      Navigator.pushNamed(context, '/categories');
+                    },
                     icon: const Icon(Icons.shopping_cart_outlined),
                   ),
                   if (cart.cartCount > 0)
@@ -100,10 +110,10 @@ final screenWidth = MediaQuery.of(context).size.width;
       ),
       body: SingleChildScrollView(
         child: Padding(
-padding: EdgeInsets.symmetric(
-  horizontal: screenWidth < 600 ? 16 : 32,
-  vertical: 16,
-),
+          padding: EdgeInsets.symmetric(
+            horizontal: screenWidth < 600 ? 16 : 32,
+            vertical: 16,
+          ),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -114,11 +124,14 @@ padding: EdgeInsets.symmetric(
                   fontWeight: FontWeight.bold,
                 ),
               ),
+
               const SizedBox(height: 4),
+
               const Text(
                 'What would you like to buy today?',
                 style: TextStyle(color: Colors.grey),
               ),
+
               const SizedBox(height: 18),
 
               TextField(
@@ -149,10 +162,26 @@ padding: EdgeInsets.symmetric(
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  categoryItem('🥬', 'Vegetables'),
-                  categoryItem('🍎', 'Fruits'),
-                  categoryItem('🥛', 'Dairy'),
-                  categoryItem('🍞', 'Bakery'),
+                  categoryItem(
+                    context,
+                    '🥬',
+                    'Vegetables',
+                  ),
+                  categoryItem(
+                    context,
+                    '🍎',
+                    'Fruits',
+                  ),
+                  categoryItem(
+                    context,
+                    '🥛',
+                    'Dairy',
+                  ),
+                  categoryItem(
+                    context,
+                    '🍞',
+                    'Bakery',
+                  ),
                 ],
               ),
 
@@ -214,29 +243,47 @@ padding: EdgeInsets.symmetric(
     );
   }
 
-  static Widget categoryItem(String emoji, String name) {
-    return Column(
-      children: [
-        Container(
-          width: 65,
-          height: 65,
-          decoration: BoxDecoration(
-            color: Colors.green.shade50,
-            borderRadius: BorderRadius.circular(18),
+  // Experiment 4: Navigator navigation
+  static Widget categoryItem(
+    BuildContext context,
+    String emoji,
+    String name,
+  ) {
+    return GestureDetector(
+      onTap: () {
+        // Experiment 4: Navigate to another screen
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => const NavigationPage(),
           ),
-          child: Center(
-            child: Text(
-              emoji,
-              style: const TextStyle(fontSize: 32),
+        );
+      },
+      child: Column(
+        children: [
+          Container(
+            width: 65,
+            height: 65,
+            decoration: BoxDecoration(
+              color: Colors.green.shade50,
+              borderRadius: BorderRadius.circular(18),
+            ),
+            child: Center(
+              child: Text(
+                emoji,
+                style: const TextStyle(fontSize: 32),
+              ),
             ),
           ),
-        ),
-        const SizedBox(height: 7),
-        Text(
-          name,
-          style: const TextStyle(fontSize: 12),
-        ),
-      ],
+
+          const SizedBox(height: 7),
+
+          Text(
+            name,
+            style: const TextStyle(fontSize: 12),
+          ),
+        ],
+      ),
     );
   }
 }
