@@ -3,6 +3,7 @@ import 'package:provider/provider.dart';
 import 'cart_provider.dart';
 import 'responsive_ui.dart';
 import 'navigation.dart';
+import 'forms.dart';
 
 void main() {
   // Experiment 5: Global state management using Provider
@@ -23,9 +24,12 @@ class GroceryApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: 'Fresh Basket',
 
-      // Experiment 4: Named route
+      // Experiment 4: Named routes
       routes: {
         '/categories': (context) => const NavigationPage(),
+
+        // Experiment 7: Forms and Validation
+        '/form': (context) => const GroceryFormPage(),
       },
 
       theme: ThemeData(
@@ -124,16 +128,12 @@ class HomePage extends StatelessWidget {
                   fontWeight: FontWeight.bold,
                 ),
               ),
-
               const SizedBox(height: 4),
-
               const Text(
                 'What would you like to buy today?',
                 style: TextStyle(color: Colors.grey),
               ),
-
               const SizedBox(height: 18),
-
               TextField(
                 decoration: InputDecoration(
                   hintText: 'Search groceries...',
@@ -146,9 +146,7 @@ class HomePage extends StatelessWidget {
                   ),
                 ),
               ),
-
               const SizedBox(height: 25),
-
               const Text(
                 'Categories',
                 style: TextStyle(
@@ -156,37 +154,17 @@ class HomePage extends StatelessWidget {
                   fontWeight: FontWeight.bold,
                 ),
               ),
-
               const SizedBox(height: 15),
-
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  categoryItem(
-                    context,
-                    '🥬',
-                    'Vegetables',
-                  ),
-                  categoryItem(
-                    context,
-                    '🍎',
-                    'Fruits',
-                  ),
-                  categoryItem(
-                    context,
-                    '🥛',
-                    'Dairy',
-                  ),
-                  categoryItem(
-                    context,
-                    '🍞',
-                    'Bakery',
-                  ),
+                  categoryItem(context, '🥬', 'Vegetables'),
+                  categoryItem(context, '🍎', 'Fruits'),
+                  categoryItem(context, '🥛', 'Dairy'),
+                  categoryItem(context, '🍞', 'Bakery'),
                 ],
               ),
-
               const SizedBox(height: 30),
-
               Container(
                 width: double.infinity,
                 padding: const EdgeInsets.all(20),
@@ -213,9 +191,7 @@ class HomePage extends StatelessWidget {
                   ],
                 ),
               ),
-
               const SizedBox(height: 30),
-
               const Text(
                 'Popular Products',
                 style: TextStyle(
@@ -223,7 +199,6 @@ class HomePage extends StatelessWidget {
                   fontWeight: FontWeight.bold,
                 ),
               ),
-
               const SizedBox(height: 15),
 
               // Experiment 3: Responsive UI using LayoutBuilder
@@ -235,6 +210,19 @@ class HomePage extends StatelessWidget {
                     image: product['image']!,
                   );
                 }).toList(),
+              ),
+
+              const SizedBox(height: 25),
+
+              // Experiment 7: Navigate to Forms and Validation page
+              SizedBox(
+                width: double.infinity,
+                child: ElevatedButton(
+                  onPressed: () {
+                    Navigator.pushNamed(context, '/form');
+                  },
+                  child: const Text('Open Grocery Form'),
+                ),
               ),
             ],
           ),
@@ -275,9 +263,7 @@ class HomePage extends StatelessWidget {
               ),
             ),
           ),
-
           const SizedBox(height: 7),
-
           Text(
             name,
             style: const TextStyle(fontSize: 12),
@@ -335,9 +321,7 @@ class _ProductCardState extends State<ProductCard> {
                 ),
               ),
             ),
-
             const SizedBox(height: 8),
-
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
@@ -367,14 +351,11 @@ class _ProductCardState extends State<ProductCard> {
                 ),
               ],
             ),
-
             const Text(
               '⭐ 4.8',
               style: TextStyle(color: Colors.orange),
             ),
-
             const SizedBox(height: 4),
-
             Text(
               widget.price,
               style: const TextStyle(
@@ -382,9 +363,7 @@ class _ProductCardState extends State<ProductCard> {
                 fontWeight: FontWeight.bold,
               ),
             ),
-
             const SizedBox(height: 8),
-
             SizedBox(
               width: double.infinity,
               child: ElevatedButton(
